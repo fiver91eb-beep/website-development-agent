@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2b1a13">
+  <meta name="description" content="Sajji, Fish Fries and Simple Rice Plate. Order directly on WhatsApp.">
+  <title>Sajji & Rice — Sajji, Fish Fries & Rice | Order on WhatsApp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Noto+Nastaliq+Urdu:wght@600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#" aria-label="Sajji and Rice home">Sajji <span>&</span> Rice</a>
+      <a class="button button-small" data-general-order href="#"> <span class="wa-icon" aria-hidden="true">◉</span> Order now</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Freshly prepared · Order direct</p>
+          <p class="urdu" lang="ur" dir="rtl">سجی</p>
+          <h1>Sajji</h1>
+          <p class="hero-description">Whole chicken roasted and served on a bed of rice — with one 1-litre bottle included.</p>
+          <p class="hero-price">PKR 1,500</p>
+          <a class="button button-large" data-sajji-order href="#"> <span class="wa-icon" aria-hidden="true">◉</span> Order Sajji on WhatsApp <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-photo" src="assets/sajji.jpg" alt="Original Sajji served on rice">
+          <div class="visual-label"><span>سجی</span><span>+ 1 Litre Bottle</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow eyebrow-light">Made with care</p>
+          <h2>Our Menu</h2>
+          <p>Choose your favourite and order directly on WhatsApp.</p>
+        </div>
+        <div class="menu-grid">
+          <article class="menu-card featured">
+            <div class="food-photo sajji-photo"><img src="assets/sajji.jpg" alt="Sajji with rice" loading="lazy"><span class="photo-caption">House speciality</span></div>
+            <div class="card-content"><span class="tag">Featured</span><div class="card-title-row"><h3>Sajji <span class="urdu-inline" lang="ur">سجی</span></h3><strong>PKR 1,500</strong></div><p>Whole chicken on a bed of rice. Includes one 1-litre bottle.</p><a class="button card-button" data-sajji-order href="#"> <span class="wa-icon">◉</span> Order on WhatsApp</a></div>
+          </article>
+          <article class="menu-card">
+            <div class="food-photo fish-photo"><img src="assets/fish.jpg" alt="Fish fries" loading="lazy"></div>
+            <div class="card-content"><div class="card-title-row"><h3>Fish Fries</h3><strong>PKR 1,000</strong></div><p>Fish fries, freshly prepared for your meal.</p><a class="button card-button" data-fish-order href="#"><span class="wa-icon">◉</span> Order on WhatsApp</a></div>
+          </article>
+          <article class="menu-card">
+            <div class="food-photo rice-photo"><img src="assets/rice.jpg" alt="Simple rice plate" loading="lazy"></div>
+            <div class="card-content"><div class="card-title-row"><h3>Simple Rice Plate</h3><strong>PKR 500</strong></div><p>A simple plate of rice.</p><a class="button card-button" data-rice-order href="#"><span class="wa-icon">◉</span> Order on WhatsApp</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="container contact-content">
+        <p class="eyebrow eyebrow-light">We are one message away</p>
+        <h2>Contact & Orders</h2>
+        <p>Message us on WhatsApp to place your order.</p>
+        <a class="phone-number" href="tel:+923443868091">0344 3868091</a>
+        <a class="button button-large" data-general-order href="#"><span class="wa-icon">◉</span> Chat on WhatsApp <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><span class="brand brand-footer">Sajji <span>&</span> Rice</span><p>© <span id="year"></span> Sajji & Rice</p></div></footer>
+</body>
+</html>
