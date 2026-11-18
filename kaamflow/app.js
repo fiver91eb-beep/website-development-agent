@@ -4,7 +4,22 @@ const modal = $("#jobModal");
 const form = $("#jobForm");
 const toast = $("#toast");
 let toastTimer;
-let jobNumber = 1043;
+let jobNumber = 1048;
+
+const dateInputValue = date => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+const formatJobDate = value => {
+  if (!value) return "Date not set";
+  return new Date(`${value}T00:00:00`).toLocaleDateString("en-US", {month:"short", day:"numeric", year:"numeric"});
+};
+const today = new Date();
+$("#todayLabel").textContent = today.toLocaleDateString("en-US", {weekday:"long", day:"numeric", month:"long", year:"numeric"}).toUpperCase();
+$("#scheduleDate").textContent = today.toLocaleDateString("en-US", {weekday:"long", month:"long", day:"numeric"});
+$("#jobDate").value = dateInputValue(today);
 
 function showToast(message) {
   toast.textContent = message;
@@ -26,7 +41,13 @@ $("#secondaryAction").addEventListener("click", openModal);
 $("#closeModal").addEventListener("click", closeModal);
 $("#cancelModal").addEventListener("click", closeModal);
 modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeModal();
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+    e.preventDefault();
+    $("#globalSearch").focus();
+  }
+});
 
 function statusClass(status) {
   if (status === "In progress") return "status-progress";
@@ -43,7 +64,7 @@ function addJobRow(job) {
   row.dataset.search = [job.title, job.customer, id, job.status].join(" ").toLowerCase();
   row.innerHTML = `<td><div class="job-cell"><span class="job-symbol repair">✧</span><span><b>${escapeHtml(job.title)}</b><small>#${id}</small></span></div></td>
     <td><div class="customer-cell"><b>${escapeHtml(job.customer)}</b><small>New customer</small></div></td>
-    <td>${escapeHtml(job.date)}</td><td><span class="status ${statusClass(job.status)}">${escapeHtml(job.status)}</span></td>
+    <td>${escapeHtml(formatJobDate(job.date))}</td><td><span class="status ${statusClass(job.status)}">${escapeHtml(job.status)}</span></td>
     <td class="amount">$ ${Number(job.amount).toFixed(2)}</td><td><button class="more-button" aria-label="More options">•••</button></td>`;
   $("#jobsTable").prepend(row);
   const count = Number($("#jobNavCount").textContent) + 1;
@@ -94,14 +115,16 @@ $("#globalSearch").addEventListener("input", event => {
     $("#overviewPage").classList.remove("hidden");
     $("#secondaryPage").classList.add("hidden");
     $("#breadcrumbPage").textContent = "Search";
-    showToast(shown + " matching job(s) in this demo.");
+    if (shown === 0) showToast("No matching jobs found.");
+  } else if ($("#breadcrumbPage").textContent === "Search") {
+    $("#breadcrumbPage").textContent = "Overview";
   }
 });
 $("#exportBtn").addEventListener("click", () => {
   const rows = [["Job","Customer","Date","Status","Amount"]];
   $$("#jobsTable tr").forEach(row => {
     const cells = $$("td", row);
-    if (cells.length) rows.push([
+    if (cells.length && !row.hidden) rows.push([
       cells[0].innerText.replace(/\n/g," "),
       cells[1].innerText.replace(/\n/g," "),
       cells[2].innerText,
@@ -120,4 +143,6 @@ $("#exportBtn").addEventListener("click", () => {
 $("#chartRange").addEventListener("change", event => {
   showToast(event.target.value === "six" ? "Showing the last 6 months (sample chart)." : "Showing this year (sample chart).");
 });
-$$(".more-button").forEach(button => button.addEventListener("click", () => showToast("More job actions will be available in a future version.")));
+document.addEventListener("click", event => {
+  if (event.target.closest(".more-button")) showToast("More job actions will be available in a future version.");
+});
