@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="KaamFlow helps local service businesses manage jobs, customers, schedules and payments in one simple workspace.">
+  <title>KaamFlow — Service Business Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="KaamFlow home">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 17.2 13.1 23 25 9" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 2.8A13.2 13.2 0 1 0 29.2 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></span>
+        <span>kaam<span class="brand-light">flow</span></span>
+      </a>
+      <div class="workspace-switch"><span class="workspace-avatar">AC</span><span class="workspace-copy"><strong>Acme Services</strong><small>Business workspace</small></span><span class="chevron">⌄</span></div>
+      <p class="nav-label">WORKSPACE</p>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview" data-view="overview"><span class="nav-icon">▦</span> Overview</a>
+        <a class="nav-link" href="#jobs" data-view="jobs"><span class="nav-icon">▤</span> Jobs <span class="nav-count" id="navJobCount">8</span></a>
+        <a class="nav-link" href="#calendar" data-view="calendar"><span class="nav-icon">▦</span> Schedule</a>
+        <a class="nav-link" href="#customers" data-view="customers"><span class="nav-icon">♙</span> Customers</a>
+        <a class="nav-link" href="#invoices" data-view="invoices"><span class="nav-icon">▧</span> Invoices</a>
+      </nav>
+      <p class="nav-label tools-label">MANAGE</p>
+      <nav class="main-nav">
+        <a class="nav-link" href="#reports" data-view="reports"><span class="nav-icon">⌁</span> Reports</a>
+        <a class="nav-link" href="#settings" data-view="settings"><span class="nav-icon">⚙</span> Settings</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><span class="help-spark">✳</span><strong>Need a hand?</strong><p>Explore the quick guide to get more from KaamFlow.</p><button class="text-button" id="guideBtn">Open quick guide <span>→</span></button></div>
+        <div class="profile-row"><div class="profile-avatar">AK</div><div class="profile-copy"><strong>Alex Khan</strong><small>Workspace owner</small></div><button class="more-button" aria-label="Profile options">•••</button></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+        <div class="breadcrumbs">Workspace <span>/</span> <strong id="breadcrumbTitle">Overview</strong></div>
+        <div class="top-actions"><span class="today-label" id="todayLabel">Tuesday, 18 November</span><button class="icon-button notification-button" id="notificationBtn" aria-label="Notifications">♧<i></i></button><button class="top-avatar" aria-label="Account">AK</button></div>
+      </header>
+
+      <section class="page-content" id="overviewView">
+        <div class="page-heading">
+          <div><p class="eyebrow">TUESDAY, 18 NOVEMBER 2026</p><h1>Good evening, Alex <span class="wave">✦</span></h1><p class="subheading">Here’s what’s happening with your business today.</p></div>
+          <button class="primary-button" id="newJobBtn"><span>＋</span> Create new job</button>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric-card"><div class="metric-top"><span>Active jobs</span><span class="metric-icon purple">▤</span></div><div class="metric-value" id="activeJobsMetric">12</div><div class="metric-foot"><span class="trend positive">↗ 8.2%</span><span>vs. last month</span></div><div class="metric-spark spark-purple"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="metric-card"><div class="metric-top"><span>Completed this month</span><span class="metric-icon green">✓</span></div><div class="metric-value" id="completedMetric">48</div><div class="metric-foot"><span class="trend positive">↗ 12.5%</span><span>vs. last month</span></div><div class="metric-spark spark-green"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="metric-card"><div class="metric-top"><span>Outstanding payments</span><span class="metric-icon orange">$</span></div><div class="metric-value" id="outstandingMetric">$2,840</div><div class="metric-foot"><span class="trend warning">5 invoices</span><span>awaiting payment</span></div><div class="metric-spark spark-orange"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="metric-card"><div class="metric-top"><span>Revenue this month</span><span class="metric-icon blue">↗</span></div><div class="metric-value">$8,460</div><div class="metric-foot"><span class="trend positive">↗ 18.4%</span><span>vs. last month</span></div><div class="metric-spark spark-blue"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel jobs-panel">
+            <div class="panel-heading"><div><h2>Recent jobs</h2><p>Keep track of your latest work.</p></div><a href="#jobs" class="subtle-link" data-view="jobs">View all jobs <span>→</span></a></div>
+            <div class="table-wrap"><table><thead><tr><th>JOB DETAILS</th><th>CUSTOMER</th><th>SCHEDULE</th><th>STATUS</th><th>AMOUNT</th><th></th></tr></thead><tbody id="jobsTableBody"></tbody></table></div>
+            <div class="panel-footer"><span id="jobsShowing">Showing 5 of 8 jobs</span><a href="#jobs" data-view="jobs">Open job manager →</a></div>
+          </section>
+          <section class="panel schedule-panel">
+            <div class="panel-heading"><div><h2>Today’s schedule</h2><p>Your upcoming appointments.</p></div><button class="dots-button" aria-label="Schedule options">•••</button></div>
+            <div class="schedule-date"><span class="date-number">18</span><span><strong>Wednesday</strong><small>November 2026</small></span><span class="today-pill">TODAY</span></div>
+            <div class="timeline" id="timeline">
+              <div class="timeline-item"><span class="time">09:00</span><span class="timeline-line"><i class="timeline-dot purple-dot"></i></span><div><strong>AC maintenance</strong><small>Olivia Rhye · Downtown</small><span class="timeline-tag tag-purple">In progress</span></div></div>
+              <div class="timeline-item"><span class="time">11:30</span><span class="timeline-line"><i class="timeline-dot orange-dot"></i></span><div><strong>Kitchen sink repair</strong><small>Marcus Chen · West End</small><span class="timeline-tag tag-orange">Upcoming</span></div></div>
+              <div class="timeline-item"><span class="time">14:00</span><span class="timeline-line"><i class="timeline-dot blue-dot"></i></span><div><strong>Electrical inspection</strong><small>Sophia Patel · Midtown</small><span class="timeline-tag tag-blue">Upcoming</span></div></div>
+            </div>
+            <button class="outline-button full-button" data-view="calendar">View full schedule <span>→</span></button>
+          </section>
+          <section class="panel activity-panel">
+            <div class="panel-heading"><div><h2>Recent activity</h2><p>Latest updates from your team.</p></div><button class="dots-button" aria-label="Activity options">•••</button></div>
+            <div class="activity-list">
+              <div class="activity-item"><div class="activity-avatar avatar-green">✓</div><div><p><strong>Job completed</strong><br>AC maintenance for Olivia Rhye</p><small>12 minutes ago</small></div></div>
+              <div class="activity-item"><div class="activity-avatar avatar-purple">$</div><div><p><strong>Invoice sent</strong><br>INV-2026-042 sent to Marcus Chen</p><small>1 hour ago</small></div></div>
+              <div class="activity-item"><div class="activity-avatar avatar-orange">＋</div><div><p><strong>New customer added</strong><br>James Wilson joined your contacts</p><small>3 hours ago</small></div></div>
+            </div>
+          </section>
+          <section class="panel attention-panel">
+            <div class="panel-heading"><div><h2>Needs attention</h2><p>A few things to take care of.</p></div><span class="attention-count">3</span></div>
+            <div class="attention-row"><span class="attention-icon orange-bg">＄</span><div><strong>5 unpaid invoices</strong><small>$2,840 waiting to be collected</small></div><button class="arrow-button" data-view="invoices">→</button></div>
+            <div class="attention-row"><span class="attention-icon purple-bg">◷</span><div><strong>2 quotes awaiting approval</strong><small>Follow up with your customers</small></div><button class="arrow-button" data-view="jobs">→</button></div>
+            <div class="attention-row"><span class="attention-icon blue-bg">▣</span><div><strong>1 job needs scheduling</strong><small>Choose a date and assign a team member</small></div><button class="arrow-button" data-view="jobs">→</button></div>
+          </section>
+        </div>
+        <footer class="app-footer"><span>© 2026 KaamFlow. Built for the people who get things done.</span><span><a href="#help">Help centre</a><a href="#privacy">Privacy</a><span class="online-dot"></span> All systems operational</span></footer>
+      </section>
+
+      <section class="page-content secondary-view hidden" id="secondaryView">
+        <div class="page-heading"><div><p class="eyebrow">KAAMFLOW WORKSPACE</p><h1 id="secondaryTitle">Jobs</h1><p class="subheading" id="secondaryDescription">Manage every job from request to completion.</p></div><button class="primary-button" id="secondaryNewBtn">＋ Create new job</button></div>
+        <div class="panel secondary-panel" id="secondaryPanel"></div>
+        <footer class="app-footer"><span>© 2026 KaamFlow. Built for the people who get things done.</span><span><a href="#help">Help centre</a><a href="#privacy">Privacy</a><span class="online-dot"></span> All systems operational</span></footer>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="jobModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <form class="modal-card" id="jobForm">
+      <div class="modal-heading"><div><p class="eyebrow">NEW WORK ORDER</p><h2 id="modalTitle">Create a new job</h2><p>Add the details and keep your work moving.</p></div><button type="button" class="modal-close" id="closeModal" aria-label="Close">×</button></div>
+      <div class="form-grid">
+        <label class="form-field full-field">Job title<input name="title" required placeholder="e.g. Air conditioner repair"></label>
+        <label class="form-field">Customer name<input name="customer" required placeholder="Customer name"></label>
+        <label class="form-field">Service type<select name="service"><option>Repair</option><option>Maintenance</option><option>Installation</option><option>Inspection</option><option>Cleaning</option></select></label>
+        <label class="form-field">Date<input name="date" type="date" required></label>
+        <label class="form-field">Estimated amount<input name="amount" type="number" min="0" step="0.01" required placeholder="0.00"></label>
+        <label class="form-field full-field">Location<input name="location" placeholder="Area or address"></label>
+      </div>
+      <div class="modal-actions"><button type="button" class="outline-button" id="cancelModal">Cancel</button><button type="submit" class="primary-button">Create job <span>→</span></button></div>
+    </form>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
