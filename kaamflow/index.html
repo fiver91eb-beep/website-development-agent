@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101b2d" />
+  <meta name="description" content="KaamFlow — a simple workspace for service businesses to manage customers, jobs, schedules and invoices." />
+  <title>KaamFlow — Business workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="KaamFlow home">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 17.2 13.2 24 26 8" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 8h7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+        <span>kaam<span>flow</span></span>
+      </a>
+      <div class="workspace-switch"><span class="workspace-avatar">H</span><span class="workspace-copy"><b>Horizon Services</b><small>Business workspace</small></span><span class="chevron">⌄</span></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview" data-page="overview"><span class="nav-icon">▦</span> Overview</a>
+        <a class="nav-link" href="#jobs" data-page="jobs"><span class="nav-icon">▤</span> Jobs <span class="nav-count" id="jobNavCount">8</span></a>
+        <a class="nav-link" href="#calendar" data-page="calendar"><span class="nav-icon">▦</span> Schedule</a>
+        <a class="nav-link" href="#customers" data-page="customers"><span class="nav-icon">♙</span> Customers</a>
+        <a class="nav-link" href="#quotes" data-page="quotes"><span class="nav-icon">▧</span> Quotes & invoices</a>
+      </nav>
+      <div class="nav-label tools-label">MANAGE</div>
+      <nav class="main-nav">
+        <a class="nav-link" href="#reports" data-page="reports"><span class="nav-icon">⌁</span> Reports</a>
+        <a class="nav-link" href="#settings" data-page="settings"><span class="nav-icon">⚙</span> Settings</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-spark">✳</div><b>Need a hand?</b><p>Make the most of your workday with KaamFlow.</p><a href="#help">Explore help centre <span>↗</span></a></div>
+        <div class="profile-row"><div class="profile-avatar">AK</div><div class="profile-copy"><b>Alex Khan</b><small>Workspace owner</small></div><button class="icon-button tiny" aria-label="Profile options">•••</button></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left"><button class="icon-button mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button><div class="breadcrumb">Workspace <span>/</span> <b id="breadcrumbPage">Overview</b></div></div>
+        <div class="topbar-actions"><label class="search-box"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search anything..." aria-label="Search jobs and customers"><kbd>⌘ K</kbd></label><button class="icon-button notification-button" aria-label="Notifications">♧<i></i></button><div class="top-avatar">AK</div></div>
+      </header>
+
+      <section class="page-content" id="overviewPage">
+        <div class="welcome-row"><div><div class="eyebrow"><span class="live-dot"></span> TUESDAY, 18 NOVEMBER 2026</div><h1>Good morning, Alex <span class="wave">✦</span></h1><p class="muted">Here's what's happening with your business today.</p></div><div class="welcome-actions"><button class="btn btn-light" id="exportBtn"><span>↓</span> Export report</button><button class="btn btn-primary" id="newJobBtn"><span>＋</span> Create new job</button></div></div>
+
+        <div class="summary-grid">
+          <article class="summary-card"><div class="summary-top"><span class="summary-icon blue">▤</span><span class="trend positive">↗ 12.8%</span></div><div class="summary-label">Total jobs this month</div><div class="summary-value" id="totalJobs">128</div><div class="summary-foot">vs. <b>113</b> last month</div><div class="mini-bars" aria-hidden="true"><i style="height:30%"></i><i style="height:44%"></i><i style="height:38%"></i><i style="height:60%"></i><i style="height:48%"></i><i style="height:76%"></i><i style="height:64%"></i><i style="height:92%"></i><i style="height:72%"></i><i style="height:100%"></i></div></article>
+          <article class="summary-card"><div class="summary-top"><span class="summary-icon green">＄</span><span class="trend positive">↗ 8.2%</span></div><div class="summary-label">Revenue this month</div><div class="summary-value">$8,420</div><div class="summary-foot">vs. <b>$7,780</b> last month</div><div class="mini-bars green-bars" aria-hidden="true"><i style="height:42%"></i><i style="height:34%"></i><i style="height:56%"></i><i style="height:48%"></i><i style="height:70%"></i><i style="height:61%"></i><i style="height:80%"></i><i style="height:70%"></i><i style="height:88%"></i><i style="height:100%"></i></div></article>
+          <article class="summary-card"><div class="summary-top"><span class="summary-icon amber">◷</span><span class="trend warning">Needs attention</span></div><div class="summary-label">Pending payments</div><div class="summary-value">$1,860</div><div class="summary-foot"><b>6 invoices</b> awaiting payment</div><div class="progress-track"><span style="width:64%"></span></div><div class="progress-caption"><span>Collected</span><b>64%</b></div></article>
+          <article class="summary-card"><div class="summary-top"><span class="summary-icon violet">✓</span><span class="trend positive">↗ 5.4%</span></div><div class="summary-label">Jobs completed</div><div class="summary-value">94<span class="value-unit">/ 128</span></div><div class="summary-foot"><b>34 jobs</b> still in progress</div><div class="progress-track purple-track"><span style="width:73%"></span></div><div class="progress-caption"><span>Completion rate</span><b>73%</b></div></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel jobs-panel"><div class="panel-heading"><div><h2>Recent jobs</h2><p>Keep track of your latest work.</p></div><a class="text-link" href="#jobs" data-page="jobs">View all jobs <span>→</span></a></div>
+            <div class="table-wrap"><table><thead><tr><th>JOB DETAILS</th><th>CUSTOMER</th><th>DATE</th><th>STATUS</th><th>AMOUNT</th><th></th></tr></thead><tbody id="jobsTable">
+              <tr><td><div class="job-cell"><span class="job-symbol ac">❄</span><span><b>AC maintenance</b><small>#KF-1048</small></span></div></td><td><div class="customer-cell"><b>Sarah Ahmed</b><small>Gulberg, Lahore</small></div></td><td>Today, 10:30 AM</td><td><span class="status status-progress">In progress</span></td><td class="amount">$180.00</td><td><button class="more-button" aria-label="More options">•••</button></td></tr>
+              <tr><td><div class="job-cell"><span class="job-symbol plumbing">⌁</span><span><b>Kitchen pipe repair</b><small>#KF-1047</small></span></div></td><td><div class="customer-cell"><b>Usman Malik</b><small>Model Town, Lahore</small></div></td><td>Today, 12:00 PM</td><td><span class="status status-scheduled">Scheduled</span></td><td class="amount">$95.00</td><td><button class="more-button" aria-label="More options">•••</button></td></tr>
+              <tr><td><div class="job-cell"><span class="job-symbol electric">ϟ</span><span><b>Electrical inspection</b><small>#KF-1046</small></span></div></td><td><div class="customer-cell"><b>Emma Wilson</b><small>DHA Phase 5, Lahore</small></div></td><td>Today, 2:30 PM</td><td><span class="status status-scheduled">Scheduled</span></td><td class="amount">$240.00</td><td><button class="more-button" aria-label="More options">•••</button></td></tr>
+              <tr><td><div class="job-cell"><span class="job-symbol clean">✧</span><span><b>Deep home cleaning</b><small>#KF-1045</small></span></div></td><td><div class="customer-cell"><b>Hassan Raza</b><small>Johar Town, Lahore</small></div></td><td>Yesterday</td><td><span class="status status-complete">Completed</span></td><td class="amount">$320.00</td><td><button class="more-button" aria-label="More options">•••</button></td></tr>
+              <tr><td><div class="job-cell"><span class="job-symbol repair">⌘</span><span><b>Washing machine repair</b><small>#KF-1044</small></span></div></td><td><div class="customer-cell"><b>Olivia Martin</b><small>Faisal Town, Lahore</small></div></td><td>Yesterday</td><td><span class="status status-pending">Awaiting parts</span></td><td class="amount">$145.00</td><td><button class="more-button" aria-label="More options">•••</button></td></tr>
+            </tbody></table></div>
+          </section>
+
+          <section class="panel schedule-panel"><div class="panel-heading"><div><h2>Today's schedule</h2><p>Tuesday, November 18</p></div><button class="round-arrow" aria-label="Open schedule">↗</button></div><div class="schedule-list">
+            <div class="schedule-item"><div class="time">10:30 <small>AM</small></div><div class="timeline"><i class="timeline-dot blue-dot"></i></div><div class="schedule-detail"><b>AC maintenance</b><span>Sarah Ahmed · 45 min</span><small class="schedule-tag blue-tag">In progress</small></div></div>
+            <div class="schedule-item"><div class="time">12:00 <small>PM</small></div><div class="timeline"><i class="timeline-dot orange-dot"></i></div><div class="schedule-detail"><b>Kitchen pipe repair</b><span>Usman Malik · 1 hr</span><small class="schedule-tag orange-tag">Upcoming</small></div></div>
+            <div class="schedule-item"><div class="time">02:30 <small>PM</small></div><div class="timeline"><i class="timeline-dot purple-dot"></i></div><div class="schedule-detail"><b>Electrical inspection</b><span>Emma Wilson · 1.5 hrs</span><small class="schedule-tag purple-tag">Upcoming</small></div></div>
+            <div class="schedule-item"><div class="time">04:30 <small>PM</small></div><div class="timeline"><i class="timeline-dot green-dot"></i></div><div class="schedule-detail"><b>Deep home cleaning</b><span>Hassan Raza · 2 hrs</span><small class="schedule-tag green-tag">Upcoming</small></div></div>
+          </div><button class="full-link" data-page="calendar">Open full schedule <span>→</span></button></section>
+        </div>
+
+        <div class="bottom-grid">
+          <section class="panel performance-panel"><div class="panel-heading"><div><h2>Business performance</h2><p>Your revenue overview for this year.</p></div><select id="chartRange" aria-label="Chart range"><option value="year">This year</option><option value="six">Last 6 months</option></select></div><div class="chart-legend"><span><i class="legend-dot revenue-dot"></i> Revenue</span><span><i class="legend-dot jobs-dot"></i> Jobs completed</span></div><div class="chart-area"><div class="y-labels"><span>$10k</span><span>$7.5k</span><span>$5k</span><span>$2.5k</span><span>$0</span></div><div class="chart-plot"><div class="grid-line l1"></div><div class="grid-line l2"></div><div class="grid-line l3"></div><div class="grid-line l4"></div><svg viewBox="0 0 660 190" preserveAspectRatio="none" role="img" aria-label="Revenue trend chart"><defs><linearGradient id="areaFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#5b8def" stop-opacity=".22"/><stop offset="100%" stop-color="#5b8def" stop-opacity="0"/></linearGradient></defs><path class="chart-area-fill" d="M0 145 C35 135 45 120 82 126 S135 102 165 112 S220 80 248 91 S300 70 330 85 S380 52 412 64 S460 40 495 56 S545 24 578 38 S625 18 660 12 L660 190 L0 190Z"/><path class="chart-line" d="M0 145 C35 135 45 120 82 126 S135 102 165 112 S220 80 248 91 S300 70 330 85 S380 52 412 64 S460 40 495 56 S545 24 578 38 S625 18 660 12"/><path class="jobs-line" d="M0 164 C35 155 45 162 82 150 S135 140 165 148 S220 125 248 135 S300 118 330 127 S380 105 412 117 S460 95 495 108 S545 83 578 93 S625 72 660 80"/></svg><div class="x-labels"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div></div></div></section>
+          <section class="panel activity-panel"><div class="panel-heading"><div><h2>Recent activity</h2><p>Latest updates from your team.</p></div><button class="more-button" aria-label="Activity options">•••</button></div><div class="activity-list">
+            <div class="activity-item"><div class="activity-avatar av-green">✓</div><div><p><b>Job completed</b><span> · Hassan marked a job as complete.</span></p><small>12 minutes ago</small></div></div>
+            <div class="activity-item"><div class="activity-avatar av-blue">＄</div><div><p><b>Payment received</b><span> · $320 from Hassan Raza.</span></p><small>1 hour ago</small></div></div>
+            <div class="activity-item"><div class="activity-avatar av-purple">＋</div><div><p><b>New customer</b><span> · Olivia Martin was added.</span></p><small>3 hours ago</small></div></div>
+            <div class="activity-item"><div class="activity-avatar av-orange">▧</div><div><p><b>Quote sent</b><span> · Quote #QT-208 was sent to Sarah.</span></p><small>Yesterday</small></div></div>
+          </div></section>
+        </div>
+        <footer class="footer"><span>© 2026 KaamFlow. Built for better workdays.</span><span>Made to keep work moving <b>✳</b></span></footer>
+      </section>
+
+      <section class="page-content secondary-page hidden" id="secondaryPage"><div class="welcome-row"><div><div class="eyebrow"><span class="live-dot"></span> WORKSPACE</div><h1 id="secondaryTitle">Jobs</h1><p class="muted" id="secondaryDescription">Manage every job from request to completion.</p></div><button class="btn btn-primary" id="secondaryAction">＋ Create new job</button></div><div class="panel secondary-panel"><div class="empty-icon">▦</div><h2 id="secondaryMessage">Your workspace is ready</h2><p>This section is part of the KaamFlow frontend demo. Use Overview to explore sample business data and create a demo job.</p><button class="btn btn-light" data-page="overview">Back to overview</button></div></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="jobModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <form class="modal" id="jobForm"><div class="modal-header"><div><span class="eyebrow">NEW WORK ORDER</span><h2 id="modalTitle">Create a new job</h2><p>Add the details and keep your work moving.</p></div><button type="button" class="icon-button close-modal" id="closeModal" aria-label="Close">×</button></div>
+      <label>Job title<input name="title" required placeholder="e.g. AC maintenance"></label>
+      <div class="form-row"><label>Customer name<input name="customer" required placeholder="Customer name"></label><label>Amount ($)<input name="amount" type="number" min="0" step="0.01" required placeholder="0.00"></label></div>
+      <div class="form-row"><label>Scheduled date<input name="date" type="date" required value="2026-11-18"></label><label>Status<select name="status"><option>Scheduled</option><option>In progress</option><option>Awaiting parts</option></select></label></div>
+      <label>Job notes<textarea name="notes" rows="3" placeholder="Add details about this job..."></textarea></label>
+      <div class="modal-actions"><button type="button" class="btn btn-light" id="cancelModal">Cancel</button><button type="submit" class="btn btn-primary">Create job <span>→</span></button></div>
+      <p class="demo-note">Demo mode: this job is saved in this browser session only.</p>
+    </form>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
