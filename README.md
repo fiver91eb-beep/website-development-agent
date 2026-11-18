@@ -4,6 +4,6 @@ A growing collection of independent static web projects. Each project lives in i
 
 ## Projects
 - Sajji & Rice — `projects/website-development-agent/`
-- NEXA AI Productivity — `projects/nexa-ai-productivity/`
+- NEXA AI Productivity — `projects/nexa-ai-productivity/`\n- KaamFlow — `projects/kaamflow/`
 
 Open each project's `index.html` directly. No build step is required.
