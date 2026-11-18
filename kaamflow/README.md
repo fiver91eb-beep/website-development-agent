@@ -11,8 +11,9 @@ KaamFlow is a frontend-first job and customer workspace concept for small servic
 - Recent activity feed
 - Create-job modal with form validation
 - Browser-side job row insertion and counters
-- Search across visible demo jobs
-- CSV export of the visible job list
+- Search across demo jobs with Ctrl/Cmd + K shortcut
+- Live date labels and current-date default for new jobs
+- CSV export of visible (filtered) job rows
 - Secondary navigation sections for jobs, schedule, customers, quotes/invoices, reports and settings
 
 ## Run locally
