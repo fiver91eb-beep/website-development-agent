@@ -5,6 +5,7 @@ KaamFlow is a responsive, frontend-only demo dashboard concept for local service
 ## Demo features
 - Business overview with jobs, completion, revenue and outstanding-payment summary cards
 - Job manager with search and status filters
+- Quote pipeline with sample estimates and interactive approval status
 - Create-job modal with browser-local persistence
 - Customer directory generated from demo jobs
 - Monthly calendar view
@@ -24,7 +25,7 @@ No build step, package manager or backend is required.
 - `app.js` — sample data and demo interactions
 
 ## Important demo limitations
-This is a frontend prototype. It does not include authentication, a shared database, real payment processing, live WhatsApp messaging, server-side storage or multi-user synchronization. Jobs created in the demo are stored in the current browser using localStorage. All dashboard financial figures and customer records are illustrative sample data.
+This is a frontend prototype. It does not include authentication, a shared database, real payment processing, live WhatsApp messaging, server-side storage or multi-user synchronization. Jobs and quote approval updates in the demo are stored in the current browser using localStorage. All dashboard financial figures and customer records are illustrative sample data.
 
 ## Suggested next steps
 1. Review the dashboard and mobile layout.
