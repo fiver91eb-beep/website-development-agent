@@ -24,6 +24,10 @@ No build step, package manager or backend is required.
 - `styles.css` — responsive styling
 - `app.js` — sample data and demo interactions
 
+## Documentation
+- `PRODUCT-SPEC.md` — target users, problem hypothesis, workflow, scope, limitations, and validation plan
+- `QA-CHECKLIST.md` — manual checks for navigation, jobs, quotes, customers, invoices, and responsive layouts
+
 ## Important demo limitations
 This is a frontend prototype. It does not include authentication, a shared database, real payment processing, live WhatsApp messaging, server-side storage or multi-user synchronization. Jobs and quote approval updates in the demo are stored in the current browser using localStorage. All dashboard financial figures and customer records are illustrative sample data.
 
