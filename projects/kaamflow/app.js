@@ -9,6 +9,14 @@ const initialJobs = [
   {id:"KF-1035",title:"Seasonal AC check",service:"Maintenance",customer:"Noah Martin",date:"2026-11-13",time:"03:00 PM",location:"East Side",status:"Completed",amount:150,icon:"❄",tone:"blue"}
 ];
 let jobs = JSON.parse(localStorage.getItem("kaamflow_jobs") || "null") || initialJobs;
+const initialQuotes = [
+  {id:"QT-2026-018",customer:"Marcus Chen",service:"Kitchen sink repair",date:"2026-11-18",amount:180,status:"Awaiting approval"},
+  {id:"QT-2026-017",customer:"Olivia Rhye",service:"AC maintenance package",date:"2026-11-17",amount:420,status:"Approved"},
+  {id:"QT-2026-016",customer:"James Wilson",service:"Water heater installation",date:"2026-11-16",amount:680,status:"Awaiting approval"},
+  {id:"QT-2026-015",customer:"Nora Davis",service:"Office deep cleaning",date:"2026-11-12",amount:450,status:"Expired"}
+];
+let quotes = JSON.parse(localStorage.getItem("kaamflow_quotes") || "null") || initialQuotes;
+const saveQuotes = () => localStorage.setItem("kaamflow_quotes",JSON.stringify(quotes));
 let currentView = "overview";
 const $ = (selector) => document.querySelector(selector);
 const money = (value) => new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(Number(value)||0);
@@ -38,6 +46,7 @@ function renderJobs(){
 }
 const viewInfo={
   jobs:["Jobs","Manage every job from request to completion."],
+  quotes:["Quotes","Prepare estimates and track customer approvals."],
   calendar:["Schedule","See your team's upcoming appointments."],
   customers:["Customers","Keep customer details and service history together."],
   invoices:["Invoices","Track quotes, invoices and outstanding payments."],
@@ -62,6 +71,9 @@ function renderSecondary(view){
   if(view==="jobs"){
     panel.innerHTML=`<div class="secondary-toolbar"><input class="search-input" id="jobSearch" placeholder="Search jobs or customers..." aria-label="Search jobs"><select class="filter-select" id="jobFilter" aria-label="Filter jobs"><option>All</option><option>Upcoming</option><option>In progress</option><option>Pending</option><option>Completed</option></select></div><div class="table-wrap"><table class="secondary-table"><thead><tr><th>JOB DETAILS</th><th>CUSTOMER</th><th>SCHEDULE</th><th>STATUS</th><th>AMOUNT</th><th></th></tr></thead><tbody id="allJobsBody"></tbody></table></div>`;
     $("#jobSearch").addEventListener("input",renderJobs);$("#jobFilter").addEventListener("change",renderJobs);renderJobs();
+  }else if(view==="quotes"){
+    const rows=quotes.map(q=>{const statusClassName=q.status==="Approved"?"status-completed":q.status==="Expired"?"status-upcoming":"status-pending";return `<tr><td><strong>${escapeHTML(q.id)}</strong></td><td>${escapeHTML(q.customer)}</td><td>${escapeHTML(q.service)}</td><td>${dateLabel(q.date)}</td><td><span class="status ${statusClassName}">${escapeHTML(q.status)}</span></td><td class="amount-cell">${money(q.amount)}</td><td>${q.status==="Awaiting approval"?`<button class="outline-button quote-approve" data-quote-action="${escapeHTML(q.id)}">Mark approved</button>`:"—"}</td></tr>`;}).join("");
+    panel.innerHTML=`<div class="panel-heading"><div><h2>Quote pipeline</h2><p>Illustrative estimates waiting for a customer decision.</p></div><span class="attention-count">${quotes.filter(q=>q.status==="Awaiting approval").length} awaiting</span></div><div class="table-wrap"><table><thead><tr><th>QUOTE</th><th>CUSTOMER</th><th>SERVICE</th><th>DATE</th><th>STATUS</th><th>ESTIMATE</th><th>ACTION</th></tr></thead><tbody>${rows}</tbody></table></div><p class="subheading" style="margin-top:18px">Demo only: quote approvals are stored in this browser and do not send messages or create real invoices.</p>`;
   }else if(view==="customers"){
     const unique=[...new Map(jobs.map(j=>[j.customer,j])).values()];
     panel.innerHTML=`<div class="customer-grid">${unique.map((j,i)=>`<article class="customer-card"><div class="customer-initial">${escapeHTML(j.customer.split(" ").map(n=>n[0]).join("").slice(0,2))}</div><strong>${escapeHTML(j.customer)}</strong><small>${escapeHTML(j.location||"Location not set")}</small><p class="subheading">${jobs.filter(x=>x.customer===j.customer).length} service job(s)</p></article>`).join("")}</div>`;
@@ -91,6 +103,8 @@ document.addEventListener("click",event=>{
   if(nav){event.preventDefault();setView(nav.dataset.view);return;}
   const action=event.target.closest("[data-job-action]");
   if(action){const job=jobs.find(j=>j.id===action.dataset.jobAction);if(!job)return;const next=job.status==="Completed"?"Upcoming":"Completed";job.status=next;saveJobs();renderOverview();if(currentView==="jobs")renderJobs();showToast(`${job.id} marked ${next.toLowerCase()}.`);return;}
+  const quoteAction=event.target.closest("[data-quote-action]");
+  if(quoteAction){const quote=quotes.find(q=>q.id===quoteAction.dataset.quoteAction);if(quote){quote.status="Approved";saveQuotes();renderSecondary("quotes");showToast(`${quote.id} marked approved.`);}return;}
   const invoice=event.target.closest("[data-invoice]");
   if(invoice){const job=jobs.find(j=>j.id===invoice.dataset.invoice);if(job){const w=window.open("","_blank","width=600,height=700");if(w){w.document.write(`<title>Invoice ${job.id}</title><body style="font:16px Arial;padding:40px;color:#182230"><h1>KaamFlow</h1><h2>Invoice for ${escapeHTML(job.customer)}</h2><p>Reference: ${job.id}</p><p>Service: ${escapeHTML(job.title)}</p><p>Date: ${dateLabel(job.date)}</p><h2>Total: ${money(job.amount)}</h2><p>Thank you for your business.</p><script>window.print()<\/script></body>`);w.document.close();}}}
 });
