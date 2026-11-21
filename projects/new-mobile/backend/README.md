@@ -11,7 +11,7 @@ This project is a **remote Chromium browser workspace**, not an Android emulator
 - Websites may restrict remote browsers or automation; a website's full mobile-app functionality is not guaranteed.
 
 ## Backend
-Python FastAPI + Playwright Chromium. See `requirements.txt` and `main.py`.
+Python FastAPI + Playwright Chromium. See `requirements.txt` and `main.py`. A Dockerfile is provided for container hosts; deployment requirements and a checklist are in `DEPLOYMENT.md`.
 
 Environment:
 - `NEW_MOBILE_DATA_DIR`: persistent data directory (default `./data`). Must survive app restarts if sessions are to persist.
