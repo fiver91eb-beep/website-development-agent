@@ -42,3 +42,20 @@ Then check `http://localhost:8000/api/v1/health`. Configure the frontend's Setti
 - This is a remote web browser, not Android Runtime. It cannot install APKs or run native Android apps.
 - Websites may block remote browser automation or limit their web versions.
 - Review and harden authentication, rate limiting, and SSRF protections before public production use. The current backend remains an MVP.
+
+## Deploy with Railway
+
+The repository includes `railway.json` for the backend service. In Railway, create a project from the GitHub repository `fiver91eb-beep/website-development-agent`, then set the service root directory to `/projects/new-mobile/backend`. Railway will build the included Dockerfile and use `/healthz` for its container health check.
+
+Before exposing the service:
+
+1. Add a Railway Volume mounted at `/data`.
+2. Set `NEW_MOBILE_DATA_DIR=/data`.
+3. Set `NEW_MOBILE_ACCESS_KEY` to a long random secret in Railway Variables.
+4. Set `CORS_ORIGINS` to the exact HTTPS origin of the published New Mobile frontend (no trailing slash).
+5. Generate a public HTTPS domain for the service.
+6. Open `https://YOUR-DOMAIN/healthz` and confirm it returns `{\"ok\":true}`.
+7. Open `https://YOUR-DOMAIN/api/v1/health` with the Bearer access key and confirm `runtime_available=true`.
+8. In the frontend Settings, enter the service base URL and access key; then test ON, navigate to a public website, OFF, ON again, and NEW.
+
+The deployment is not complete until Chromium starts successfully and all browser controls are tested. Railway account connection, project creation, volume provisioning, variables, and domain generation require authorization in the user's Railway workspace.
