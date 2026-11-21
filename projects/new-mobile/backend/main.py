@@ -100,7 +100,9 @@ async def launch_context() -> None:
         user_data_dir=str(PROFILE_DIR),
         headless=True,
         viewport={"width": 390, "height": 844},
-        device_scale_factor=1,
+        device_scale_factor=2,
+        is_mobile=True,
+        has_touch=True,
         args=["--no-sandbox", "--disable-dev-shm-usage"],
     )
     context.set_default_timeout(15000)
@@ -267,7 +269,11 @@ async def input_event(sid: str, body: InputBody, _: None = Depends(require_key))
     elif body.type == "text":
         await page.keyboard.insert_text(body.text or "")
     elif body.type == "key":
-        allowed = {"Enter", "Backspace", "Tab", "Escape"}
+        allowed = {
+            "Enter", "Backspace", "Tab", "Shift+Tab", "Escape", "Space",
+            "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight",
+            "Home", "End", "PageUp", "PageDown", "Delete"
+        }
         if body.key not in allowed:
             raise HTTPException(status_code=400, detail="Unsupported key")
         await page.keyboard.press(body.key)
