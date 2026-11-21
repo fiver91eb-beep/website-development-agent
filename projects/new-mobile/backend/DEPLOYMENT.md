@@ -1,15 +1,15 @@
 # New Mobile backend deployment
 
-This backend needs a host that can run Docker, Chromium, and a persistent writable disk.
+This backend needs a host that can run Docker, Chromium, and a writable filesystem. A persistent disk is optional: use one only if browser logins must survive server restarts or redeploys.
 
 ## Required configuration
 
 - `PORT`: supplied by many hosts; defaults to 8000.
-- `NEW_MOBILE_DATA_DIR`: set to a persistent mounted directory (the Dockerfile defaults to `/data`).
+- `NEW_MOBILE_DATA_DIR`: writable directory for the temporary browser profile (the Dockerfile defaults to `/data`).
 - `NEW_MOBILE_ACCESS_KEY`: set a long, random secret before exposing the API publicly. The frontend sends it as a Bearer token.
 - `CORS_ORIGINS`: set to the exact HTTPS origin serving the frontend. Do not leave the wildcard default for a public deployment.
 
-Mount a persistent disk at `/data`. Without persistent storage, browser logins and cookies can be lost when the service restarts or is redeployed.
+For the requested temporary-use setup, do **not** attach a persistent volume. The profile exists only on the running service filesystem: OFF then ON can reuse it while the service stays alive, and NEW deletes it. A service restart or redeploy may erase the profile and logins. Attach a persistent disk at `/data` only if that behavior is later desired.
 
 ## Start locally with Docker
 
@@ -49,7 +49,7 @@ The repository includes `railway.json` for the backend service. In Railway, crea
 
 Before exposing the service:
 
-1. Add a Railway Volume mounted at `/data`.
+1. Do not add a Railway Volume for the temporary-use setup (a volume is optional only for retaining sessions across service restarts).
 2. Set `NEW_MOBILE_DATA_DIR=/data`.
 3. Set `NEW_MOBILE_ACCESS_KEY` to a long random secret in Railway Variables.
 4. Set `CORS_ORIGINS` to the exact HTTPS origin of the published New Mobile frontend (no trailing slash).
@@ -58,4 +58,4 @@ Before exposing the service:
 7. Open `https://YOUR-DOMAIN/api/v1/health` with the Bearer access key and confirm `runtime_available=true`.
 8. In the frontend Settings, enter the service base URL and access key; then test ON, navigate to a public website, OFF, ON again, and NEW.
 
-The deployment is not complete until Chromium starts successfully and all browser controls are tested. Railway account connection, project creation, volume provisioning, variables, and domain generation require authorization in the user's Railway workspace.
+The deployment is not complete until Chromium starts successfully and all browser controls are tested. For temporary use, no persistent volume is required; browser data can disappear after a service restart or redeploy. Railway account connection, project creation, volume provisioning, variables, and domain generation require authorization in the user's Railway workspace.
