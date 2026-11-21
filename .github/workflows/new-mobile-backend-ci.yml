@@ -1,0 +1,38 @@
+name: New Mobile backend CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "projects/new-mobile/backend/**"
+      - ".github/workflows/new-mobile-backend-ci.yml"
+  pull_request:
+    paths:
+      - "projects/new-mobile/backend/**"
+      - ".github/workflows/new-mobile-backend-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile Python source
+        run: python -m compileall -q projects/new-mobile/backend
+
+      - name: Build backend container
+        uses: docker/build-push-action@v6
+        with:
+          context: projects/new-mobile/backend
+          push: false
+          tags: new-mobile-backend:ci
