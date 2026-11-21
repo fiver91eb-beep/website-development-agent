@@ -32,6 +32,7 @@ history: list[dict[str, str]] = []
 session_id = str(uuid.uuid4())
 profile_id = str(uuid.uuid4())
 state = "stopped"
+runtime_available = False
 current_url: str | None = None
 created_at = datetime.now(timezone.utc).isoformat()
 
@@ -122,14 +123,14 @@ def _record_navigation(url: str) -> None:
 def session_info() -> dict[str, Any]:
     return {
         "session_id": session_id, "state": state, "profile_id": profile_id,
-        "current_url": current_url, "runtime_available": True,
+        "current_url": current_url, "runtime_available": runtime_available,
         "viewport": {"width": 390, "height": 844}, "updated_at": now()
     }
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global playwright_manager, session_id, profile_id, state, current_url
+    global playwright_manager, session_id, profile_id, state, current_url, runtime_available
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     if STATE_FILE.exists():
         try:
@@ -141,6 +142,7 @@ async def lifespan(app: FastAPI):
         except Exception:
             pass
     playwright_manager = await async_playwright().start()
+    runtime_available = Path(playwright_manager.chromium.executable_path).is_file()
     yield
     await close_context()
     await playwright_manager.stop()
@@ -155,7 +157,7 @@ app.add_middleware(
 
 @app.get("/api/v1/health")
 async def health(_: None = Depends(require_key)):
-    return {"ok": True, "runtime_available": True, "runtime": "remote Chromium browser"}
+    return {"ok": True, "runtime_available": runtime_available, "chromium_binary_present": runtime_available, "runtime": "remote Chromium browser"}
 
 
 @app.post("/api/v1/session/start")
