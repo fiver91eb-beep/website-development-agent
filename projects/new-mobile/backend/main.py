@@ -155,6 +155,12 @@ app.add_middleware(
 )
 
 
+@app.get("/healthz")
+async def healthz():
+    # Public lightweight endpoint for container-host health checks.
+    return {"ok": True}
+
+
 @app.get("/api/v1/health")
 async def health(_: None = Depends(require_key)):
     return {"ok": True, "runtime_available": runtime_available, "chromium_binary_present": runtime_available, "runtime": "remote Chromium browser"}
