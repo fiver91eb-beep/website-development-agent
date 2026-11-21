@@ -10,16 +10,16 @@ A mobile-first, remote isolated browser workspace. This is **not an Android emul
 
 ## Controls
 - **ON**: start or resume the remote browser profile
-- **OFF**: close the browser while keeping its profile data on the backend's persistent disk
+- **OFF**: close the browser while keeping its profile in the running service's temporary filesystem
 - **NEW**: delete the old profile and create a fresh one
 
 ## Important limitations
 - Sites run in remote Chromium, not in the phone's local Chrome.
 - The server's public IP is used; there is no unique phone IP, MAC address, IMEI, or iPhone identity.
 - Sites may block remote browsing or automation; not every app feature is available on the web.
-- Persistent logins require durable server storage. Ephemeral hosting can lose the profile.
+- The profile is temporary: it normally remains available while the Railway service process stays alive, but a restart or redeploy can erase it. No persistent volume is attached.
 - Set a backend access key and restrict CORS before public deployment.
-- Replit app creation could not be authorized in this account during the initial setup; deployment has not been configured or tested.
+- The backend is configured on Railway. Confirm its public health endpoint and test ON/NEW in the browser before relying on it.
 
 ## Run
 Serve `frontend/index.html` as a static page. Run the backend according to `backend/README.md`, then set the backend API base URL in the frontend's Settings.
