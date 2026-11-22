@@ -1,4 +1,4 @@
-import os, uuid, threading, traceback
+import os, uuid, threading, traceback, requests, json
 from flask import Flask, request, jsonify, send_file
 from renderer import render_video, make_storyboard
 
@@ -17,13 +17,41 @@ def home():
 def health():
     return jsonify({"ok": True, "service": "AI Video Studio", "renderer": "Pillow + FFmpeg"})
 
+def ai_storyboard(prompt, style, duration):
+    keys = [os.getenv("OPENROUTER_API_KEY_1"), os.getenv("OPENROUTER_API_KEY_2")]
+    keys = [k for k in keys if k]
+    for key in keys:
+        try:
+            response = requests.post("https://openrouter.ai/api/v1/chat/completions", timeout=35,
+                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json",
+                         "HTTP-Referer": os.getenv("APP_URL", "https://railway.app"),
+                         "X-Title": "AI Video Studio"},
+                json={"model": "openrouter/auto", "messages": [
+                    {"role": "system", "content": "You are a concise video creative director. Return only valid JSON with keys title and scenes. scenes must be an array of exactly 4 objects, each with scene, time, title, description."},
+                    {"role": "user", "content": f"Create a {duration}-second {style} video storyboard for: {prompt}. Make four sequential visual scenes."}
+                ], "temperature": 0.7})
+            response.raise_for_status()
+            content = response.json()["choices"][0]["message"]["content"]
+            content = content.strip().removeprefix("```json").removesuffix("```").strip()
+            result = json.loads(content)
+            if isinstance(result.get("scenes"), list) and result["scenes"]:
+                return {"title": result.get("title", prompt[:48]), "style": style,
+                        "duration": duration, "scenes": result["scenes"][:4], "ai_generated": True}
+        except Exception:
+            continue
+    return None
+
 @app.post("/api/storyboards")
 def storyboard():
     data = request.get_json(silent=True) or {}
     prompt = str(data.get("prompt", "")).strip()
     if not prompt:
         return jsonify({"error": "Please describe your video first."}), 400
-    return jsonify(make_storyboard(prompt, data.get("style", "Cartoon"), data.get("duration", 8)))
+    style = data.get("style", "Cartoon")
+    duration = max(4, min(20, int(data.get("duration", 8))))
+    result = ai_storyboard(prompt, style, duration) or make_storyboard(prompt, style, duration)
+    result["ai_generated"] = result.get("ai_generated", False)
+    return jsonify(result)
 
 @app.post("/api/renders")
 def create_render():
