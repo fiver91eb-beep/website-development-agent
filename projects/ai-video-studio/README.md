@@ -1,6 +1,17 @@
 # AI Video Studio
 
-A mobile-first prompt-to-video web application. This MVP creates short animated MP4 videos locally using Pillow + FFmpeg and provides storyboard generation, render progress, preview, and download.
+A mobile-first prompt-to-video web app. It creates short animated MP4 videos and includes optional OpenRouter-powered storyboard generation.
+
+## Current capabilities
+
+- Prompt-based 4-scene storyboard generation.
+- Optional OpenRouter integration using server-side environment variables.
+- Built-in animated MP4 renderer with Cartoon, Storybook, Minimal and Neon style choices in the UI (the renderer currently uses a procedural cartoon animation pipeline).
+- Landscape (16:9), portrait (9:16), and square (1:1) output.
+- Render progress, in-browser preview, and MP4 download.
+- Flask JSON API and health endpoint.
+
+**Important:** This version does not generate photorealistic AI video frames. OpenRouter is used for storyboard text only; the MP4 is rendered by the built-in Pillow + FFmpeg animation renderer. A dedicated video-generation provider/API is required for true generative text-to-video output.
 
 ## Run locally
 
@@ -18,20 +29,33 @@ Open http://localhost:5000.
 
 ## API
 
-- GET /health — health check
-- POST /api/storyboards — create a 4-scene storyboard from a prompt
-- POST /api/renders — queue a video render
-- GET /api/renders/{job_id} — poll render progress
-- GET /api/renders/{job_id}/download — download MP4
+- GET /health
+- POST /api/storyboards
+- POST /api/renders
+- GET /api/renders/{job_id}
+- GET /api/renders/{job_id}/download
 
-Render request JSON: `{"prompt":"A cat explores a magical forest","style":"Cartoon","mood":"Happy","ratio":"16:9","duration":8}`.
+Render request JSON:
+```json
+{"prompt":"A cat explores a magical forest","style":"Cartoon","mood":"Happy","ratio":"16:9","duration":8}
+```
 
-## Deployment on Railway
+## Railway deployment
 
-Set the service root directory to `/projects/ai-video-studio`, builder to Railpack, start command to `gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 600 app:app`, and health check path to `/health`.
+Set the service root directory to `/projects/ai-video-studio`, builder to Railpack, start command to:
 
-The application uses FFmpeg through the `imageio-ffmpeg` package. The built-in renderer works without API keys. Optional OpenRouter integration can be added using server-side Railway variables only; never commit API keys to GitHub or frontend JavaScript.
+```bash
+gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 600 app:app
+```
 
-## Current MVP limits
+Health check path: `/health`.
 
-The renderer produces stylized animated scenes, not photorealistic generative video. Jobs are held in process memory and output MP4 files are written to the service filesystem. For durable production use, add a persistent volume, external job queue, and object storage. A single worker is configured to avoid multiple in-memory job registries.
+Optional server-side variables:
+- `OPENROUTER_API_KEY_1`
+- `OPENROUTER_API_KEY_2`
+
+Never put API keys in frontend JavaScript or commit them to GitHub. The app tries the first key, then the second if needed.
+
+## MVP deployment notes
+
+Render jobs and status are held in process memory; rendered MP4 files are written to the service filesystem. Jobs/files may be lost on restart or redeploy. For production, add a persistent volume, external job queue, and object storage. A single Gunicorn worker is configured for the in-memory job registry.
