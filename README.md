@@ -2,7 +2,7 @@
 
 A growing collection of independent web projects. Each project lives in its own folder under `projects/`.
 
-**Projects listed: 4**
+**Projects listed: 5**
 
 ## Projects
 
@@ -25,3 +25,10 @@ Open static frontend projects' `index.html` directly. New Mobile additionally re
 ## Portfolio note
 
 The count above reflects the four projects currently listed in this repository. Project scope and completion level differ: KaamFlow is documented as a frontend prototype, while New Mobile is a deployed remote-browser MVP with known platform limitations and ongoing interaction refinements.
+
+
+5. **AI Video Studio** — `projects/ai-video-studio/`
+   - Mobile-first prompt-to-video creator with storyboard generation, animation rendering, progress tracking, browser preview and MP4 download.
+   - Python Flask backend with Pillow + FFmpeg renderer; optional OpenRouter storyboard generation supports two server-side API keys with failover.
+   - Railway deployment is configured separately for this folder; render files and in-memory jobs are MVP-only and need persistent storage/queue for production.
+   - Source: [AI Video Studio project folder](https://github.com/fiver91eb-beep/website-development-agent/tree/main/projects/ai-video-studio)
